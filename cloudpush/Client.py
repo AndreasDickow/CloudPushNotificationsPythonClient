@@ -119,17 +119,17 @@ class Client:
         response.raise_for_status()
         return json.loads(response.text) if response.text else response.status_code
 
-    def get_subscriptions(self, topic=None, deviceId=None, offset=0, size=100, expand=False):
+    def get_subscriptions(self, topic=None, device_id=None, offset=0, size=100, expand=False):
         """
 
         :param topic: specify a topic to get the subscribers for it
-        :param deviceId: specify a deviceId, to get all subscriptions for the device
+        :param device_id: specify a deviceId, to get all subscriptions for the device
         :param offset: set a offset for pagination, default 0
         :param size: set the pagination size default=100, maximum 500
         :param expand: if True, retrieve additional information for the results
         """
         response = requests.get("%s/%s/subscriptions?offset=%s&size=%s&expand=%s&deviceId=%s&topic=%s" % (
-            self._push_base_url, self.app_id, offset, size, expand, deviceId, topic),
+            self._push_base_url, self.app_id, offset, size, expand, device_id, topic),
                                 headers={'clientSecret': self.client_secret, 'Authorization': self.get_auth_header()})
         response.raise_for_status()
         return json.loads(response.text) if response.text else response.status_code
