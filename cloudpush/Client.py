@@ -134,6 +134,24 @@ class Client:
         response.raise_for_status()
         return json.loads(response.text) if response.text else response.status_code
 
+    def get_device(self,device_id=None,token=None):
+        """
+
+        :param device_id:
+        :param token:  optional if device id unknown
+        :return:
+        """
+        if not device_id and token:
+            device_id = hashlib.md5(token.encode()).hexdigest()
+        elif not device_id:
+            raise Exception("enter either token or device_id")
+        response = requests.get(
+            "%s/%s/devices/%s" % (self._push_base_url, self.app_id, device_id),
+            headers={'clientSecret': self.client_secret, 'Authorization': self.get_auth_header()})
+        response.raise_for_status()
+        return json.loads(response.text) if response.text else response.status_code
+
+
     def get_devices(self, offset=0, size=100, expand=False):
         """
 

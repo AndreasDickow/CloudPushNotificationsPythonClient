@@ -25,6 +25,8 @@ register_device(token, platform, device_id=None)
 
 delete_device(device_id)
 
+get_device(device_id=None,token=None)
+
 get_devices()
 
 get_device_stats()
