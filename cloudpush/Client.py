@@ -128,13 +128,13 @@ class Client:
         :param size: set the pagination size default=100, maximum 500
         :param expand: if True, retrieve additional information for the results
         """
-        response = requests.get("%s/%s/subscriptions?offset=%s&size=%s&expand=%s&deviceId=%s&topic=%s" % (
+        response = requests.get("%s/%s/subscriptions?offset=%s&size=%s&expand=%s&deviceId=%s&tagName=%s" % (
             self._push_base_url, self.app_id, offset, size, expand, device_id, topic),
                                 headers={'clientSecret': self.client_secret, 'Authorization': self.get_auth_header()})
         response.raise_for_status()
         return json.loads(response.text) if response.text else response.status_code
 
-    def get_device(self,device_id=None,token=None):
+    def get_device(self, device_id=None, token=None):
         """
 
         :param device_id:
@@ -150,7 +150,6 @@ class Client:
             headers={'clientSecret': self.client_secret, 'Authorization': self.get_auth_header()})
         response.raise_for_status()
         return json.loads(response.text) if response.text else response.status_code
-
 
     def get_devices(self, offset=0, size=100, expand=False):
         """
@@ -183,6 +182,61 @@ class Client:
         :param days: days from today to return push stats
         """
         response = requests.get("%s/%s/messages/report?days=%s" % (self._push_base_url, self.app_id, days),
+                                headers={'clientSecret': self.client_secret, 'Authorization': self.get_auth_header()})
+        response.raise_for_status()
+        return json.loads(response.text) if response.text else response.status_code
+
+    def get_messages(self, offset=0):
+        """
+
+        :param offset:
+        :return: {
+                  "messages": [
+                    {
+                      "createdTime": "2017-07-08T13:43:10.000Z",
+                      "messageId": "fnDWK8bG",
+                      "alert": "Sample message text",
+                      "href": "http://server/imfpush/v1/myapp/messages/fnDWK8bG"
+                    }
+                  ]
+                }
+        """
+        response = requests.get("%s/%s/messages/?offset=%s" % (self._push_base_url, self.app_id, offset),
+                                headers={'clientSecret': self.client_secret, 'Authorization': self.get_auth_header()})
+        response.raise_for_status()
+        return json.loads(response.text) if response.text else response.status_code
+
+    def get_message(self,message_id):
+        """
+
+        :param message_id:
+        :return: Message response object
+        """
+        response = requests.get("%s/%s/messages/%s" % (self._push_base_url, self.app_id, message_id),
+                                headers={'clientSecret': self.client_secret, 'Authorization': self.get_auth_header()})
+        response.raise_for_status()
+        return json.loads(response.text) if response.text else response.status_code
+
+    def get_message_status(self,message_id):
+
+        """
+
+        :param message_id:
+        :return: message send status object
+        """
+        response = requests.get("%s/%s/messages/%s/status" % (self._push_base_url, self.app_id, message_id),
+                                headers={'clientSecret': self.client_secret, 'Authorization': self.get_auth_header()})
+        response.raise_for_status()
+        return json.loads(response.text) if response.text else response.status_code
+
+    def get_message_delivery_status(self,message_id,device_id):
+        """
+
+        :param message_id:
+        :param device_id:
+        :return: message send delivery_status object
+        """
+        response = requests.get("%s/%s/messages/%s/deliverystatus?deviceId=%s" % (self._push_base_url, self.app_id, message_id,device_id),
                                 headers={'clientSecret': self.client_secret, 'Authorization': self.get_auth_header()})
         response.raise_for_status()
         return json.loads(response.text) if response.text else response.status_code
@@ -316,4 +370,3 @@ class Client:
                                           'Authorization': self.get_auth_header()})
         response.raise_for_status()
         return json.loads(response.text) if response.text else response.status_code
-
