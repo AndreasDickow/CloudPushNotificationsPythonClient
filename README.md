@@ -55,6 +55,13 @@ push messages
 ```python
 get_push_stats()
 
+get_messages(offset=0)
+
+get_message(message_id)
+
+get_message_status(message_id)
+
+get_message_delivery_status(message_id,device_id="")
 
 send_message(alert, url=None,
                      platforms=["A", "G"],

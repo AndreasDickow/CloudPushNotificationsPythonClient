@@ -119,7 +119,7 @@ class Client:
         response.raise_for_status()
         return json.loads(response.text) if response.text else response.status_code
 
-    def get_subscriptions(self, topic=None, device_id=None, offset=0, size=100, expand=False):
+    def get_subscriptions(self, topic="", device_id="", offset=0, size=100, expand=False):
         """
 
         :param topic: specify a topic to get the subscribers for it
@@ -229,7 +229,7 @@ class Client:
         response.raise_for_status()
         return json.loads(response.text) if response.text else response.status_code
 
-    def get_message_delivery_status(self,message_id,device_id):
+    def get_message_delivery_status(self,message_id,device_id=""):
         """
 
         :param message_id:

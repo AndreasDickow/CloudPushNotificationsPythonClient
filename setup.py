@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="cloud_push_client",
-    version="1.0.2",
+    version="1.0.3",
     author="Andreas Dickow",
     author_email="andreas.dickow@biz-factory.de",
     description="A Python client for the Bluemix/IBM push notifications service",
