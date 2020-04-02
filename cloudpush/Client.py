@@ -7,12 +7,12 @@ import requests
 
 
 class Client:
-    _auth_base_url = 'https://iam.bluemix.net/identity/token'
+    _auth_base_url = 'https://iam.cloud.ibm.com/identity/token'
 
-    def __init__(self, api_key, app_id, client_secret, base_path='https://imfpush.eu-de.bluemix.net/imfpush/v1/apps'):
+    def __init__(self, api_key, app_id, client_secret, base_path='https://eu-de.imfpush.cloud.ibm.com/imfpush/v1/apps'):
         """
 
-        :param base_path: the path of your regional server default: https://imfpush.eu-de.bluemix.net/imfpush/v1/apps
+        :param base_path: the path of your regional server default: https://eu-de.imfpush.cloud.ibm.com/imfpush/v1/apps
         :param api_key:
         :param app_id:
         :param client_secret:
